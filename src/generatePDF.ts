@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as pdf from 'html-pdf';
+import * as open from 'open';
 import { prepareForCommand, build } from "./build";
 
 const pdfMap = new Map<string, string>();
@@ -11,6 +12,7 @@ function pathValidation(pathStr: string): string {
     return "";
   return "Target folder doesn't exist!";
 }
+
 
 export async function generateJsonResumePDF() {
   let fileName = await prepareForCommand();
@@ -23,8 +25,8 @@ export async function generateJsonResumePDF() {
     if (fs.existsSync(fileName)) {
       const defValue = pdfMap.has(fileName) ? pdfMap.get(fileName) : "";
       vscode.window.showInputBox({
-        prompt: "Please enter full filename of PDF to generated", 
-        value: defValue, 
+        prompt: "Please enter full filename of PDF to generated",
+        value: defValue,
         validateInput: pathValidation
       }).then(result => {
         if (!result) return;
@@ -33,9 +35,12 @@ export async function generateJsonResumePDF() {
           result = path.join(parsedPath.dir, parsedPath.name + ".pdf");
         }
         pdfMap.set(fileName, result);
-        pdf.create(html, {}).toFile(result, function(err){
-          if (!err){
+        pdf.create(html, {}).toFile(result, function (err) {
+          if (!err) {
             vscode.window.showInformationMessage(`PDF save to ${result} successfully!`);
+            if (vscode.workspace.getConfiguration('JSONResume').get('openPDF')) {
+              open(result);
+            }
           }
         });
       });

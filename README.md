@@ -6,26 +6,26 @@ This extension is a wrapper around a great tool called  [hackmyresume](http://pl
 
 The following features are available:
 
+### Resume preview
+
+![Resume preview](assets/preview.gif)
+
 ### Schema hints and completion (jsonschema)
 > Tip: For this mode to work, your files must be end with **.resume.json** . See [Known Issues](#issues)
 
-![Schema hints](images/schema.gif)
+![Schema hints](assets/schema.gif)
 
 ### Schema validation (hackmyresume)
 
-![Schema validation](images/feature-x.png)
+![Schema validation](assets/validation.gif)
 
 ### Resume analysis (hackmyresume)
 
-![Resume analysis](images/feature-x.png)
-
-### Resume preview
-
-![Resume preview](images/feature-x.png)
+![Resume analysis](assets/analysis.gif)
 
 ### PDF Generation
 
-![PDF Generation](images/feature-x.png)
+![PDF Generation](assets/pdf.gif)
 
 
 ## Extension Settings

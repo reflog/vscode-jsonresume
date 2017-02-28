@@ -51,6 +51,11 @@
           "type": "boolean",
           "default": true,
           "description": "Validate the resume on each run"
+        },
+        "JSONResume.openPDF": {
+          "type": "boolean",
+          "default": false,
+          "description": "Open the PDF after it's generated"
         }
       }
     },
@@ -76,6 +81,7 @@
     "json-to-ast": "1.2.15",
     "mocha": "^2.3.3",
     "html-pdf": "2.1.0",
+    "open": "0.0.5",
     "typescript": "^2.0.3",
     "vscode": "^1.0.0"
   },
