@@ -49,6 +49,11 @@ This extension contributes the following key bindings:
 
 ## Release Notes
 
+### 0.0.2
+
+- Fixed the package to be smaller (removed documentation images)
+- Made an ugly icon
+
 ### 0.0.1
-Initial release
+- Initial release
 

@@ -8,3 +8,5 @@ src/**
 tsconfig.json
 vsc-extension-quickstart.md
 debug.log
+*.vsix
+assets/*.gif
