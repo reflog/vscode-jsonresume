@@ -1,0 +1,83 @@
+{
+  "name": "jsonresume",
+  "displayName": "JSONResume Editor",
+  "description": "JSONResume Editor let's you preview your resume from inside VSCode",
+  "version": "0.0.1",
+  "publisher": "Eli Yukelzon",
+  "engines": {
+    "vscode": "^1.5.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:json"
+  ],
+  "main": "./out/src/extension",
+  "contributes": {
+    "jsonValidation": [{
+      "fileMatch": "*.resume.json",
+      "url": "http://json.schemastore.org/resume"
+    }],
+    "commands": [{
+        "command": "extension.previewJsonResume",
+        "title": "Preview JSONResume"
+      },
+      {
+        "command": "extension.generateJsonResumePDF",
+        "title": "Convert JSONResume to PDF"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "JSONResume Viewer configuration",
+      "properties": {
+        "JSONResume.theme": {
+          "type": "string",
+          "default": "modern",
+          "description": "Theme to use. Either one of: 'positive', 'modern', 'compact', 'basis' or a path to json-resume theme"
+        },
+        "JSONResume.analysis": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show resume analysis on each run"
+        },
+        "JSONResume.autoSave": {
+          "type": "boolean",
+          "default": true,
+          "description": "Save the resume before showing/updating the preview"
+        },
+        "JSONResume.validation": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate the resume on each run"
+        }
+      }
+    },
+    "keybindings": [{
+      "command": "extension.previewJsonResume",
+      "key": "Ctrl+Shift+j",
+      "win": "Ctrl+Shift+j",
+      "when": "editorTextFocus"
+    }]
+  },
+  "scripts": {
+    "vscode:prepublish": "tsc -p ./",
+    "compile": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.32",
+    "@types/node": "^6.0.40",
+    "chalk": "1.1.3",
+    "hackmyresume": "1.8.0",
+    "handlebars": "4.0.6",
+    "json-to-ast": "1.2.15",
+    "mocha": "^2.3.3",
+    "html-pdf": "2.1.0",
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.0"
+  },
+  "dependencies": {}
+}
