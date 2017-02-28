@@ -2,7 +2,7 @@
   "name": "jsonresume",
   "displayName": "JSONResume Editor",
   "description": "JSONResume Editor let's you preview your resume from inside VSCode",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "publisher": "reflog",
   "engines": {
     "vscode": "^1.5.0"
@@ -15,11 +15,14 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
-    "jsonValidation": [{
-      "fileMatch": "*.resume.json",
-      "url": "http://json.schemastore.org/resume"
-    }],
-    "commands": [{
+    "jsonValidation": [
+      {
+        "fileMatch": "*.resume.json",
+        "url": "http://json.schemastore.org/resume"
+      }
+    ],
+    "commands": [
+      {
         "command": "extension.previewJsonResume",
         "title": "Preview JSONResume"
       },
@@ -59,12 +62,14 @@
         }
       }
     },
-    "keybindings": [{
-      "command": "extension.previewJsonResume",
-      "key": "Ctrl+Shift+j",
-      "win": "Ctrl+Shift+j",
-      "when": "editorTextFocus"
-    }]
+    "keybindings": [
+      {
+        "command": "extension.previewJsonResume",
+        "key": "Ctrl+Shift+j",
+        "win": "Ctrl+Shift+j",
+        "when": "editorTextFocus"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
