@@ -3,7 +3,7 @@
   "displayName": "JSONResume Editor",
   "description": "JSONResume Editor let's you preview your resume from inside VSCode",
   "version": "0.0.1",
-  "publisher": "Eli Yukelzon",
+  "publisher": "reflog",
   "engines": {
     "vscode": "^1.5.0"
   },
