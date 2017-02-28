@@ -57,8 +57,8 @@ export function activate(context: vscode.ExtensionContext) {
   diagnosticCollection = vscode.languages.createDiagnosticCollection();
   analysisOutputChannel = vscode.window.createOutputChannel('JSONResume Analysis');
 
-  context.subscriptions.push(vscode.commands.registerCommand('extension.previewJsonResume', processJsonResume));
-  context.subscriptions.push(vscode.commands.registerCommand('extension.generateJsonResumePDF', generateJsonResumePDF));
+  context.subscriptions.push(vscode.commands.registerCommand('JSONResume.previewJsonResume', processJsonResume));
+  context.subscriptions.push(vscode.commands.registerCommand('JSONResume.generateJsonResumePDF', generateJsonResumePDF));
 }
 
 export function deactivate() {

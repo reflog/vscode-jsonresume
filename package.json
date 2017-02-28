@@ -28,11 +28,11 @@
     ],
     "commands": [
       {
-        "command": "extension.previewJsonResume",
+        "command": "JSONResume.previewJsonResume",
         "title": "Preview JSONResume"
       },
       {
-        "command": "extension.generateJsonResumePDF",
+        "command": "JSONResume.generateJsonResumePDF",
         "title": "Convert JSONResume to PDF"
       }
     ],
@@ -69,7 +69,7 @@
     },
     "keybindings": [
       {
-        "command": "extension.previewJsonResume",
+        "command": "JSONResume.previewJsonResume",
         "key": "Ctrl+Shift+j",
         "win": "Ctrl+Shift+j",
         "when": "editorTextFocus"
@@ -85,15 +85,16 @@
   "devDependencies": {
     "@types/mocha": "^2.2.32",
     "@types/node": "^6.0.40",
+    "mocha": "^2.3.3",
+    "typescript": "^2.0.3",
+    "vscode": "^1.0.0"
+  },
+  "dependencies": {
     "chalk": "1.1.3",
     "hackmyresume": "1.8.0",
     "handlebars": "4.0.6",
     "json-to-ast": "1.2.15",
-    "mocha": "^2.3.3",
     "html-pdf": "2.1.0",
-    "open": "0.0.5",
-    "typescript": "^2.0.3",
-    "vscode": "^1.0.0"
-  },
-  "dependencies": {}
+    "open": "0.0.5"
+  }
 }

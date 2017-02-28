@@ -49,6 +49,10 @@ This extension contributes the following key bindings:
 
 ## Release Notes
 
+### [0.0.3]
+
+- package.json fix
+
 ### 0.0.2
 
 - Fixed the package to be smaller (removed documentation images)
