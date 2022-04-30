@@ -24,7 +24,7 @@ function display(doc: vscode.TextDocument, uri: vscode.Uri) {
 
 async function processJsonResume() {
   let outFile = await prepareForCommand();
-  if (!outFile) {
+  if (!outFile || !vscode.window.activeTextEditor) {
     return;
   }
 

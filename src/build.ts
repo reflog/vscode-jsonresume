@@ -1,21 +1,21 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as HMR from 'hackmyresume';
+const HMR = require('hackmyresume');
 import * as os from 'os';
 
 
 export async function prepareForCommand(): Promise<string> {
   let editor = vscode.window.activeTextEditor;
   if (!editor) {
-    return null;
+    return "";
   }
 
   let doc = editor.document;
   let fileName = doc.fileName;
   if (vscode.workspace.getConfiguration('JSONResume').get('autoSave')) {
     if (doc.isDirty && !(await doc.save())) {
-      return null;
+      return "";
     }
   }
 
@@ -23,7 +23,7 @@ export async function prepareForCommand(): Promise<string> {
 
 }
 
-export async function build(srcArray, destFile) {
+export async function build(srcArray:any, destFile:any) {
   let options = {
     theme: vscode.workspace.getConfiguration('JSONResume').get('theme'),
     css: 'embed'
