@@ -13,7 +13,7 @@ handlebars.registerHelper(helpers);
 let template = handlebars.compile(rawTpl, { strict: false, assumeObjects: false });
 
 export async function analyze(analysisOutputChannel: vscode.OutputChannel, srcArray: string[]) {
-    analysisOutputChannel.show();
+    analysisOutputChannel.show(true);
     let v = new HMR.verbs.analyze();
     v.on('hmr:status', function (params:any) {
         if (params.info) {
