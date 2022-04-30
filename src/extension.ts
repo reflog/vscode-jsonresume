@@ -10,27 +10,15 @@ import { generateJsonResumePDF } from "./generatePDF";
 let analysisOutputChannel: vscode.OutputChannel;
 let diagnosticCollection: vscode.DiagnosticCollection;
 
-
-
-function display(doc: vscode.TextDocument, uri: vscode.Uri) {
-  return vscode.commands.executeCommand('vscode.previewHtml', uri, vscode.ViewColumn.Two, 'JsonResume Preview').then(
-    success =>
-      vscode.window.showTextDocument(doc), // return back to editing the resume
-    reason =>
-      vscode.window.showErrorMessage(reason)
-  );
-}
-
-
-async function processJsonResume() {
-  let outFile = await prepareForCommand();
-  if (!outFile) {
-    return;
-  }
-
-
+async function updateWebview(panel: vscode.WebviewPanel) {
   try {
-    let doc = vscode.window.activeTextEditor.document;
+    let outFile = await prepareForCommand();
+    const editor = vscode.window.activeTextEditor;
+    if (!outFile || !editor) {
+      return;
+    }
+
+    let doc = editor.document;
     let promises = [];
     if (vscode.workspace.getConfiguration('JSONResume').get('analysis')) {
       promises.push(analyze(analysisOutputChannel, [doc.fileName]));
@@ -42,7 +30,9 @@ async function processJsonResume() {
     promises.push(build([doc.fileName], outFile));
     await Promise.all(promises);
     if (fs.existsSync(outFile)) {
-      display(doc, vscode.Uri.file(outFile));
+      const data = await fs.promises.readFile(outFile);
+      // And set its HTML content
+      panel.webview.html = data.toString();
     } else {
       throw new Error();
     }
@@ -50,14 +40,43 @@ async function processJsonResume() {
     console.error(ex);
     vscode.window.showErrorMessage('Cannot generate preview!');
   }
-
 }
 
-export function activate(context: vscode.ExtensionContext) {
+function createOpenPreviewPanel(context : vscode.ExtensionContext) {
+  let panel : vscode.WebviewPanel | undefined = undefined;
+
+  return async function() {
+    if (!panel) {
+      // Create and show panel
+      panel = vscode.window.createWebviewPanel(
+        'jsonResumePreview',
+        'JsonResume Preview',
+        vscode.ViewColumn.Two,
+        {}
+      );
+
+      var listener = vscode.workspace.onDidSaveTextDocument(_ => updateWebview(panel!));
+
+      panel.onDidDispose(
+        () => {
+          listener.dispose();
+          panel = undefined;
+        },
+        undefined,
+        context.subscriptions
+      );
+    }
+
+    await updateWebview(panel);
+  };
+}
+
+export function activate(context : vscode.ExtensionContext) {
   diagnosticCollection = vscode.languages.createDiagnosticCollection();
   analysisOutputChannel = vscode.window.createOutputChannel('JSONResume Analysis');
 
-  context.subscriptions.push(vscode.commands.registerCommand('JSONResume.previewJsonResume', processJsonResume));
+  const openPreviewPanel = createOpenPreviewPanel(context);
+  context.subscriptions.push(vscode.commands.registerCommand('JSONResume.previewJsonResume', openPreviewPanel));
   context.subscriptions.push(vscode.commands.registerCommand('JSONResume.generateJsonResumePDF', generateJsonResumePDF));
 }
 

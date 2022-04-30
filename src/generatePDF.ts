@@ -16,7 +16,7 @@ function pathValidation(pathStr: string): string {
 
 export async function generateJsonResumePDF() {
   let fileName = await prepareForCommand();
-  if (!fileName) {
+  if (!fileName || !vscode.window.activeTextEditor) {
     return;
   }
   try {
@@ -36,7 +36,7 @@ export async function generateJsonResumePDF() {
         }
         pdfMap.set(fileName, result);
         pdf.create(html, {}).toFile(result, function (err) {
-          if (!err) {
+          if (!err && result) {
             vscode.window.showInformationMessage(`PDF save to ${result} successfully!`);
             if (vscode.workspace.getConfiguration('JSONResume').get('openPDF')) {
               open(result);
